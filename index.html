@@ -47,7 +47,19 @@
 
     --spine-width: 220px;
   }
+    [data-theme="dark"] {
+  --paper: #0d1117;
+  --paper-alt: #161b22;
+  --ink: #e6edf3;
+  --ink-soft: #8b949e;
+  --accent: #58a6ff;
+  --accent-warm: #f0883e;
+  --rule: #30363d;
+  --card: #161b22;
+}
 
+body { transition: background 0.25s ease, color 0.25s ease; }
+  
   * { box-sizing: border-box; }
 
   html { scroll-behavior: smooth; }
@@ -305,9 +317,10 @@
       <a class="tab" href="#contact"><span class="code">05</span> Contact</a>
     </nav>
 
-    <div class="spine-footer">
-      Last updated September 2026
-    </div>
+   <div class="spine-footer">
+      <button id="theme-toggle" onclick="toggleTheme()" style="background:none; border:1px solid var(--rule); color:var(--ink); font-family:var(--font-mono); font-size:0.75rem; padding:6px 10px; border-radius:6px; cursor:pointer; margin-bottom:10px;">🌙 Dark Mode</button>
+         <br>Last updated September 2026
+  </div>
   </header>
 
   <main id="main">
@@ -514,5 +527,25 @@
   </main>
 </div>
 
-</body>
+     <script>
+      function toggleTheme() 
+      {
+        const html = document.documentElement;
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+        localStorage.setItem('portfolio-theme', isDark ? 'light' : 'dark');
+        document.getElementById('theme-toggle').textContent = isDark ? '🌙 Dark Mode' : '☀️ Light Mode';
+      }
+      window.addEventListener('DOMContentLoaded', function () 
+      {
+        const saved = localStorage.getItem('portfolio-theme');
+        if (saved === 'dark') 
+      {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      document.getElementById('theme-toggle').textContent = '☀️ Light Mode';
+      }
+  });
+</script>
+     
+  </body>
 </html>
